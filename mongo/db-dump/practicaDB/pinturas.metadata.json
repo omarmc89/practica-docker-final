@@ -1,1 +1,1 @@
-{"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_"}],"uuid":"f71e4ddb2ad94373ae9d98d7c316c4a4","collectionName":"pinturas","type":"collection"}
+{"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_"}],"uuid":"a73ef1105ca342f0be71f8c59e02aae8","collectionName":"pinturas","type":"collection"}
