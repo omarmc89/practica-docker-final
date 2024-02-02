@@ -9,7 +9,7 @@ const MONGO_URI = process.env.MONGO_URI
 const PORT = process.env.PORT ?? 1234;
 
 mongoose
-    .connect("mongodb://noah:noah1234@localhost:27017/practicaDB", { useNewUrlParser: true, useUnifiedTopology: true })
+    .connect("mongodb://noah:noah1234@mongo-container:27017/practicaDB", { useNewUrlParser: true, useUnifiedTopology: true })
     .then(console.log('Connected to mongoDB'))
 
 app.use(express.json());
