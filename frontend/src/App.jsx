@@ -7,7 +7,7 @@ function App() {
   const [pinturas, setPinturas] = useState([])
 
   useEffect(() => {
-    fetch('http://localhost:1234/pinturas')
+    fetch('http://localhost:80/pinturas')
       .then(res => res.json())
       .then(data => setPinturas(data))
   }, [])
