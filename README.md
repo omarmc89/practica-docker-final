@@ -27,7 +27,7 @@
 
 ----
 
-
+### MongoDB | <img src="https://static-00.iconduck.com/assets.00/mongodb-icon-2048x2048-cezvpn3f.png" alt="icono-mongodb" width="25">
 Empezamos creando el ***docker compose*** por la parte de la base de datos y utilizando MongoDB. El docker compose lo construimos de la siguiente manera:
 
 ~~~~yml
