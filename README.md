@@ -1,6 +1,7 @@
-# INTEGRACIÓN EN DOCKER COMPOSE MULTIPLES SERVICIOS
-### Backend, frontend, base de datos, loadbalancer y métricas
-
+<p align="center">
+  <h1 align="center">INTEGRACIÓN EN DOCKER COMPOSE MULTIPLES SERVICIOS</h1>
+  <h3 align="center">Backend, frontend, base de datos, loadbalancer y métricas</h3>
+</p>
 ----
 
 ![Static Badge](https://img.shields.io/badge/NodeJS%20%2B%20Express-backend-green?style=for-the-badge&logo=nodedotjs&logoColor=green)
@@ -10,20 +11,36 @@
 ![Static Badge](https://img.shields.io/badge/Grafana-Interfaz%20m%C3%A9tricas-darkorange?style=for-the-badge&logo=grafana&labelColor=gray)
 
 #### CONTENEDORES:
-- [MongoDB](#mongo-container)
-- [Mongo Express](#mongo-express)
-- [Backend](#backend)
-- [Frontend](#frontend)
-- [Prometheus](#prometheus)
-- [Grafana](#grafana)
-- [Loadbalancer](#loadbalancer)
+- [](#)
+    - [CONTENEDORES:](#contenedores)
+    - [CONFIGURACIÓN:](#configuración)
+  - [MongoDB](#mongodb)
+  - [Mongo Express](#mongo-express)
+  - [Backend](#backend)
+  - [Frontend](#frontend)
+  - [Prometheus](#prometheus)
+  - [Grafana](#grafana)
+  - [Loadbalancer.](#loadbalancer)
+  - [Arranque docker-compose.](#arranque-docker-compose)
+  - [Configuración interfaz Grafana.](#configuración-interfaz-grafana)
+  - [Comprobación de todos los servicios.](#comprobación-de-todos-los-servicios)
 
 
 #### CONFIGURACIÓN:
 
-- [Arranque docker-compose](#arranque#docker)
-- [Configuración interfaz Grafana](#configuracion#grafana)
-- [Comprobación de todos los servicios](#comprobacion)
+- [](#)
+    - [CONTENEDORES:](#contenedores)
+    - [CONFIGURACIÓN:](#configuración)
+  - [MongoDB](#mongodb)
+  - [Mongo Express](#mongo-express)
+  - [Backend](#backend)
+  - [Frontend](#frontend)
+  - [Prometheus](#prometheus)
+  - [Grafana](#grafana)
+  - [Loadbalancer.](#loadbalancer)
+  - [Arranque docker-compose.](#arranque-docker-compose)
+  - [Configuración interfaz Grafana.](#configuración-interfaz-grafana)
+  - [Comprobación de todos los servicios.](#comprobación-de-todos-los-servicios)
 
 ----
 
