@@ -26,11 +26,13 @@
 - [Comprobación de todos los servicios](#comprobacion)
 
 ----
-<div style="text-align:center">
-<img src="https://static-00.iconduck.com/assets.00/mongodb-icon-2048x2048-cezvpn3f.png" alt="icono-mongodb" width="90">
-</div>
 
 ### MongoDB
+
+<p align="center">
+<img src="https://static-00.iconduck.com/assets.00/mongodb-icon-2048x2048-cezvpn3f.png" alt="icono-mongodb" width="90">
+</p>
+
 Empezamos creando el ***docker compose*** por la parte de la base de datos y utilizando MongoDB. El docker compose lo construimos de la siguiente manera:
 
 ~~~~yml
@@ -131,11 +133,12 @@ echo "MongoDB restore realizado
 Estos tres archivos los debemos copiar en el directorio ***/docker-entrypoint-initdb.d/*** para que se ejecuten justo al iniciarse el contenedor. Importante también, referenciar el directorio donde se almacenará el dump.
 Como hemos indicado, este contenedor deberá iniciarse el primero, ya que el resto dependen de alguna manera de este. Por ello, hemos creado un *healtcheck* para que una vez iniciado el servicio de mongo y este funcionando, pase a crearse el resto. Con las variables indicamos que se haga la primera comprobación a los 20s y que cada 10s se vuelva a comprobar en caso de fallo. Realizadas 3 comprobaciones fallidas, se interrumpe la inicialización del docker-compose.
 
-<div style="text-align:center">
-<img src="https://developer.asustor.com/uploadIcons/0020_999_1579585089_mongo-express-256.png" alt="icono-mongodb" width="90">
-</div>
 
 ##### Mongo Express.
+
+<p align="center">
+<img src="https://developer.asustor.com/uploadIcons/0020_999_1579585089_mongo-express-256.png" alt="icono-mongodb" width="90">
+</p>
 
 Una vez creado el contenedor para del servicio de **MongoDB**, pasamos a configurar el de **Mongo Express**. A destacar las variables de entorno necesarias para vincular este contenedor con el de ***MongoDB*** (mongo-container en nuestro caso) y la propia configuración de ***Mongo Express***.
 
@@ -165,9 +168,9 @@ Hay que destacar con el *depends_on* incluyendo la *condition: service_healthy* 
 
 ##### Backend.
 
-<div style="text-align:center">
+<p align="center">
 <img src="./imagenes-readme/backend.png" alt="icono-mongodb" width="90">
-</div>
+</p>
 
 
 Terminada la parte de la base de datos, pasamos al contenedor de backend. En nuestro caso, utilizamos utilizaremos ***NodeJS*** junto con ***Express*** y para ello el contenedor utiliza la imagen *node*.
@@ -218,9 +221,9 @@ frontend_container:
 
 ##### Prometheus
 
-<div style="text-align:center">
+<p align="center">
 <img src="https://static-00.iconduck.com/assets.00/prometheus-icon-511x512-1vmxbcxr.png" alt="icono-mongodb" width="90">
-</div>
+</p>
 
 
 En la parte de las métricas, utilizamos las imagenes de ***Prometheus*** y ***Grafana***.
@@ -332,9 +335,9 @@ app.get('/pinturas', async (req, res) => {
 
 ##### Grafana.
 
-<div style="text-align:center">
+<p align="center">
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Grafana_icon.svg/351px-Grafana_icon.svg.png" alt="icono-mongodb" width="90">
-</div>
+</p>
 
 Para configurar el servicio de ***Grafana*** de nuevo debemos intertar en el directorio correspondiente el archivo *datasources.yml*, insertar las variables de entorno y crear un volumen para mantener las metricas cuando se cierre y se vuelva a iniciar el contenedor.
 ~~~~yml
@@ -353,6 +356,10 @@ datasources:
 ~~~~
 
 ##### Loadbalancer.
+
+<p align="center">
+<img src="https://www.freeiconspng.com/thumbs/load-balancer-icon/load-balancer-icon-18.png" alt="icono-mongodb" width="180">
+</p>
 
 Para finalizar con el ***docker compose***, configuramos un loadbalancer de nginx. Para ello, creamos el contenedor con la imagen nginx y copiamos el archivo nginx.conf en el directorio correspondiente del contenedor y una vez iniciado el contenedor que se ejecute el comando *nginx -g daemon off* para ejecutar nginx en primer plano.
 
@@ -373,9 +380,9 @@ load_balancer:
 
 ##### Arranque docker-compose.
 
-<div style="text-align:center">
-<img src="https://miro.medium.com/v2/resize:fit:453/1*QVFjsW8gyIXeCUJucmK4XA.png" alt="icono-mongodb" width="200">
-</div>
+<p align="center">
+  <img src="https://miro.medium.com/v2/resize:fit:453/1*QVFjsW8gyIXeCUJucmK4XA.png" alt="icono-mongodb" width="200">
+</p>
 
 Terminado el docker compose, lo arrancamos mediante *docker compose up --build* y vemos como arrancan todos los contenedores. Primero el de ***MongoDB*** y despues de unos 20s incian el resto.
 Este es un ejemplo de como inician algunos de ellos.
