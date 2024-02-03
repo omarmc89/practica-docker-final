@@ -304,44 +304,44 @@ load_balancer:
 Terminado el docker compose, lo arrancamos mediante *docker compose up --build* y vemos como arrancan todos los contenedores. Primero el de ***MongoDB*** y despues de unos 20s incian el resto.
 Este es un ejemplo de como inician algunos de ellos.
 
-![Docker compose ejemplo 1](image.png)
-![Docker compose ejemplo 2](image-1.png)
+![Docker compose ejemplo 1](./imagenes-readme/image.png)
+![Docker compose ejemplo 2](./imagenes-readme/image-1.png)
 
 En este paso, que ya han arrancado todos los contenedores. Tenemos que configurar el dashboard de ***Grafana***. En la url *localhost:3500*, nos aparecerá la pagina de bienvenida.
 
-![Url Grafana](image-2.png)
+![Url Grafana](./imagenes-readme/image-2.png)
 
 Hacemos click en el símbolo de + para crear un nuevo dashboard y en la siguiente pantalla, en la parte de abajo tenemos que activar las query de nuestros contadores.
 
-![Creación dashboard](image-3.png)
+![Creación dashboard](./imagenes-readme/image-3.png)
 
 En la barra de la derecha podemos personalizar el el gráfico a nuestro gusto.
 Hemos creado 3 dashboards, uno con el contador de cada endpoit, otro de las visitas totales de los dos y el medidor de la respuesta del fetching. Nos queda un resultado como este:
 
-![Dashboard final Grafana](image-4.png)
+![Dashboard final Grafana](./imagenes-readme/image-4.png)
 
 Hecho esto, podemos comprobar que todos los contenedores funcionan correctamente.
 Primero, el servicio de ***Mongo Express*** vinculado a ***MongoDB*** directamente.
 Entrado en la url *localhost:8081*, vemos tanto la bd creada *('practicaDB')* como la colección *('pinturas)*
 
-![MongoExpress BD](image-5.png)
-![BD y colección](image-6.png)
+![MongoExpress BD](./imagenes-readme/image-5.png)
+![BD y colección](./imagenes-readme/image-6.png)
 
 El siguiente contenedor a comprobar es el del backend, para ello en vez de entrar a *localhost:1234* donde tenemos nuestro servidor funcionando, lo hacemos con *localhost:80*. Esto es por tener funcionando el ***loadbalancer***.
 
-![Home backend](image-7.png)
+![Home backend](./imagenes-readme/image-7.png)
 
 Y si visitamos el endpoint de *('/pinturas)* nos devuelve el json de la base de datos.
 
-![Url /pinturas](image-8.png)
+![Url /pinturas](./imagenes-readme/image-8.png)
 
 En cuanto, al frontend, ingresamos a *localhost:1233* donde esta funcionando y nos muestra la aplicación de ejemplo creada con ***vite*** y ***react***.
 
-![Url frontend](image-9.png)
+![Url frontend](./imagenes-readme/image-9.png)
 
 Y si hacemos scroll vemos que la petición a la API funciona correctamente.
 
-![Ejemplo 1 frontend](image-10.png)
-![Ejemplo 2 frontend](image-12.png)
-![Ejemplo 3 frontend](image-11.png)
+![Ejemplo 1 frontend](./imagenes-readme/image-10.png)
+![Ejemplo 2 frontend](./imagenes-readme/image-12.png)
+![Ejemplo 3 frontend](./imagenes-readme/image-11.png)
 
