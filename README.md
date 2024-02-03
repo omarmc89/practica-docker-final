@@ -134,7 +134,7 @@ Estos tres archivos los debemos copiar en el directorio ***/docker-entrypoint-in
 Como hemos indicado, este contenedor deberá iniciarse el primero, ya que el resto dependen de alguna manera de este. Por ello, hemos creado un *healtcheck* para que una vez iniciado el servicio de mongo y este funcionando, pase a crearse el resto. Con las variables indicamos que se haga la primera comprobación a los 20s y que cada 10s se vuelva a comprobar en caso de fallo. Realizadas 3 comprobaciones fallidas, se interrumpe la inicialización del docker-compose.
 
 
-##### Mongo Express.
+### Mongo Express
 
 <p align="center">
 <img src="https://developer.asustor.com/uploadIcons/0020_999_1579585089_mongo-express-256.png" alt="icono-mongodb" width="90">
@@ -166,7 +166,7 @@ adminMongo-container:
 
 Hay que destacar con el *depends_on* incluyendo la *condition: service_healthy* la total dependencia con el contenedor de ***MongoDB***. Solo se inciará ***Mongo Express*** si ***MongoDB*** ha arrancado con éxito.
 
-##### Backend.
+### Backend
 
 <p align="center">
 <img src="./imagenes-readme/backend.png" alt="icono-mongodb" width="90">
@@ -194,7 +194,7 @@ backend_container:
       - practica_net
 ~~~~~
 
-##### Frontend.
+### Frontend
 
 <div style="text-align:center">
 <img src="./imagenes-readme/app.png" alt="icono-mongodb" width="90">
@@ -219,7 +219,7 @@ frontend_container:
       - practica_net
 ~~~~~
 
-##### Prometheus
+### Prometheus
 
 <p align="center">
 <img src="https://static-00.iconduck.com/assets.00/prometheus-icon-511x512-1vmxbcxr.png" alt="icono-mongodb" width="90">
@@ -333,7 +333,7 @@ app.get('/pinturas', async (req, res) => {
 })
 ~~~~
 
-##### Grafana.
+### Grafana
 
 <p align="center">
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Grafana_icon.svg/351px-Grafana_icon.svg.png" alt="icono-mongodb" width="90">
@@ -355,7 +355,7 @@ datasources:
     editable: true
 ~~~~
 
-##### Loadbalancer.
+### Loadbalancer.
 
 <p align="center">
 <img src="https://www.freeiconspng.com/thumbs/load-balancer-icon/load-balancer-icon-18.png" alt="icono-mongodb" width="180">
@@ -378,7 +378,7 @@ load_balancer:
     - practica_net
 ~~~~
 
-##### Arranque docker-compose.
+### Arranque docker-compose.
 
 <p align="center">
   <img src="https://miro.medium.com/v2/resize:fit:453/1*QVFjsW8gyIXeCUJucmK4XA.png" alt="icono-mongodb" width="200">
@@ -392,7 +392,7 @@ Este es un ejemplo de como inician algunos de ellos.
 
 En este paso, que ya han arrancado todos los contenedores. Tenemos que configurar el dashboard de ***Grafana***. En la url *localhost:3500*, nos aparecerá la pagina de bienvenida.
 
-##### Configuración interfaz Grafana.
+### Configuración interfaz Grafana.
 
 ![Url Grafana](./imagenes-readme/image-2.png)
 
@@ -405,7 +405,7 @@ Hemos creado 3 dashboards, uno con el contador de cada endpoit, otro de las visi
 
 ![Dashboard final Grafana](./imagenes-readme/image-4.png)
 
-##### Comprobación de todos los servicios.
+### Comprobación de todos los servicios.
 
 Coprobamos que todos los contenedores funcionan correctamente.
 Primero, el servicio de ***Mongo Express*** vinculado a ***MongoDB*** directamente.
