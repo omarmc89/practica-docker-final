@@ -1,22 +1,41 @@
+const path = require('path');
+const dotenv = require('dotenv').config({ path: path.resolve(__dirname, '.env') });
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const Pintura = require('./models/pinturas');
-const MONGO_URI = process.env.MONGO_URI
 const { register, collectDefaultMetrics, Counter, Gauge } = require('prom-client');
-const PORT = process.env.PORT ?? 1234;
 
+// .env Variables
+const MONGODB_USER = process.env.MONGODB_USER;
+const MONGODB_PASSWORD = process.env.MONGODB_PASSWORD;
+const MONGODB_PORT = process.env.MONGODB_PORT;
+const MONGODB_NAME = process.env.MONGODB_NAME;
+const MONGODB_HOST_NAME = process.env.MONGODB_HOST_NAME;
+const PORT = process.env.BACKEND_PORT ?? 1234;
+
+// Crear la aplicación de express
 const app = express();
+
+console.log(MONGODB_NAME, MONGODB_USER, MONGODB_PASSWORD, MONGODB_PORT, MONGODB_HOST_NAME);
 
 // Conectar a la base de datos
 mongoose
-    .connect("mongodb://noah:noah1234@mongo-container:27017/practicaDB", { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(console.log('Connected to mongoDB'))
+    .connect(`mongodb://${MONGODB_USER}:${MONGODB_PASSWORD}@${MONGODB_HOST_NAME}:${MONGODB_PORT}/${MONGODB_NAME}`)
+    .then(() => {
+        console.log('Connected to MongoDB');
+    })
+    .catch((error) => {
+        console.error('Error connecting to MongoDB:', error);
+    });
     
-    //LOCAL --> mongodb://noah:noah1234@mongo-container:27017/practicaDB
+    //DOCKER --> mongodb://noah:noah1234@mongo-container:27017/practicaDB
     
-    //DOCKER --> mongodb://noah:noah1234@localhost:27017/practicaDB
+    //LOCAL --> mongodb://noah:noah1234@localhost:27017/practicaDB
     
+    //${MONGODB_USER}:${MONGODB_PASSWORD}@localhost:${MONGODB_PORT}/${MONGODB_NAME
+
+
 // Middlewares básicos
 app.use(express.json());
 app.use(cors());

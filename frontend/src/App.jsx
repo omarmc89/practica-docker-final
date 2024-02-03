@@ -3,11 +3,13 @@ import ActionAreaCard from './components/ActionAreaCard'
 import Header from './components/Header'
 import { useEffect, useState } from 'react'
 
+const API_URL = process.env.API_URL
+
 function App() {
   const [pinturas, setPinturas] = useState([])
 
   useEffect(() => {
-    fetch('http://localhost:80/pinturas')
+    fetch(`${API_URL}/pinturas`)
       .then(res => res.json())
       .then(data => setPinturas(data))
   }, [])

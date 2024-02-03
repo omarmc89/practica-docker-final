@@ -13,7 +13,7 @@ services:
     - backend_container
     command: ["nginx", "-g", "daemon off;"]
     networks:
-    - practica-final-daw
+    - practica_net
 
   prometheus_practica:
     image: prom/prometheus:v2.20.1
@@ -27,7 +27,7 @@ services:
     depends_on:
     - backend_container
     networks:
-    - practica-final-daw
+    - practica_net
 
   grafana_practica:
     image: grafana/grafana:7.1.5
@@ -38,14 +38,14 @@ services:
     - ./grafana/datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml
     - myGrafanaVol:/var/lib/grafana
     environment:
-      GF_AUTH_DISABLE_LOGIN_FORM: "true"
-      GF_AUTH_ANONYMOUS_ENABLED: "true"
-      GF_AUTH_ANONYMOUS_ORG_ROLE: Admin
-      GF_INSTALL_PLUGINS: grafana-clock-panel 1.0.1
+      GF_AUTH_DISABLE_LOGIN_FORM: ${GF_AUTH_DISABLE_LOGIN_FORM}
+      GF_AUTH_ANONYMOUS_ENABLED: ${GF_AUTH_ANONYMOUS_ENABLED}
+      GF_AUTH_ANONYMOUS_ORG_ROLE: ${GF_AUTH_ANONYMOUS_ORG_ROLE}
+      GF_INSTALL_PLUGINS: ${GF_INSTALL_PLUGINS}
     depends_on:
     - prometheus_practica
     networks:
-    - practica-final-daw
+    - practica_net
 
   frontend_container:
     image: node:19-alpine
@@ -59,7 +59,7 @@ services:
     depends_on:
       - backend_container
     networks:
-      - practica-final-daw
+      - practica_net
 
   backend_container:
     image: node:19-alpine
@@ -74,38 +74,38 @@ services:
       - mongo-container
       - adminMongo-container
     networks:
-      - practica-final-daw
+      - practica_net
 
   adminMongo-container:
     image: mongo-express:latest
     container_name: adminMongo-container
     restart: unless-stopped
     ports:
-      - 8081:8081
+      - ${MONGO_EXPRESS_PORT}:${MONGO_EXPRESS_PORT}
     environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: omar
-      ME_CONFIG_MONGODB_ADMINPASSWORD: omar1234
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGODB_ROOT_USER}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGODB_ROOT_PASSWORD}
       ME_CONFIG_MONGODB_SERVER: mongo-container
-      ME_CONFIG_MONGODB_PORT: 27017
-      ME_CONFIG_BASICAUTH_USERNAME: mexpress
-      ME_CONFIG_BASICAUTH_PASSWORD: mexpress
-      ME_CONFIG_MONGODB_URL: mongo-container://omar:omar1234@mongo-container:27017/?authSource=admin
+      ME_CONFIG_MONGODB_PORT: ${MONGODB_PORT}
+      ME_CONFIG_BASICAUTH_USERNAME: ${MONGO_EXPRESS_USER}
+      ME_CONFIG_BASICAUTH_PASSWORD: ${MONGO_EXPRESS_PASSWORD}
+      ME_CONFIG_MONGODB_URL: ${ME_MONGODB_URL}
     depends_on:
       mongo-container:
         condition: service_healthy
     networks:
-      - practica-final-daw
+      - practica_net
 
   mongo-container:
     image: mongo:latest
     container_name: mongo-container
     restart: always
     ports:
-      - 27017:27017
+      - ${MONGODB_PORT}:${MONGODB_PORT}
     environment:
-      MONGO_INITDB_ROOT_USERNAME: omar
-      MONGO_INITDB_ROOT_PASSWORD: omar1234
-      MONGO_INITDB_DATABASE: practicaDB
+      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_ROOT_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGODB_NAME}
     hostname: mongo-container
     healthcheck:
       test:
@@ -127,10 +127,10 @@ services:
       - ./mongo/mongorestore.sh:/docker-entrypoint-initdb.d/mongorestore.sh
       - ./mongo/db-dump:/db-dump
     networks:
-      - practica-final-daw
+      - practica_net
   
 networks:
-  practica-final-daw:
+  practica_net:
 
 volumes:
   myGrafanaVol:
