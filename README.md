@@ -1,5 +1,5 @@
-# Práctica final Docker - DAW
-#### Integracion en un _Docker Compose_ un proyecto con backend, frontend, base de datos y métricas.
+# Práctica final Docker - 2º DAW
+### Integracion en un _Docker Compose_ un proyecto con backend, frontend, base de datos y métricas.
 ![Static Badge](https://img.shields.io/badge/NodeJS%20%2B%20Express-backend-green?style=for-the-badge&logo=nodedotjs&logoColor=green)
 ![Static Badge](https://img.shields.io/badge/Vite%2BReact-frontend-skyblue?style=for-the-badge&logo=react&labelColor=gray)
 ![Static Badge](https://img.shields.io/badge/MongoDB-Database-darkgreen?style=for-the-badge&logo=mongodb&labelColor=gray)
@@ -8,7 +8,8 @@
 
 Primero explicaremos la creación y configuración del docker-compose entero.
 Empezamos por la parte de la base de datos y utilizaremos MongoDB. El docker compose lo contruimos de la siguiente manera:
-~~~~
+
+~~~~yml
 mongo-container:
     image: mongo:latest
     container_name: mongo-container
@@ -42,9 +43,11 @@ mongo-container:
     networks:
       - practica_net
 ~~~~
+
 Utilizamos la imagen de mongo y según la documentación introducimos las variables de entorno correspondientes. Para poder iniciar el contenedor y que lo primero que haga sea crear las tablas y las rellene de datos tenemos 3 archivos.
 El ***mongo-init.js*** con el que creamos la conexión a la base de datos **'practicaDB'**, nombre que le hemos dado en el docker compose, creamos un usuario, la colección y los datos a rellenar en ella.
-~~~~~
+
+~~~~~javascript
 // Conexión a la base de datos
 var conn = new Mongo();
 var db = conn.getDB('practicaDB');
@@ -86,21 +89,27 @@ db.pinturas.insertMany(pinturas);
 
 print('Colección "pinturas" creada y documentos insertados exitosamente.');
 ~~~~~
+
 Además, para realizar el dump de la base de datos nada más iniciar la base de datos tenemos el script ***mongodump.sh***. En él debemos introducir las variables de autentificación de la base de datos a la que realizar el dump. En nuestro caso, al ser las credenciales root, tenemos que poner la flag *--authenticationDatabase admin* y la ruta donde se almacenarán los archivos del respaldo realizado.
-~~~~~
+
+~~~~~sh
 mongodump --authenticationDatabase admin --username omar --password omar1234 --db practicaDB --out /db-dump
 echo "MongoDB dump hecho"
 ~~~~~
+
 Por último, tenemos el script ***mongorestore.sh*** mediante el que restauraremos la base de datos cada vez que se inicie el contenedor en caso de ser necesario. Igual que el anterior script, lo unico que debemos indicar es la base de datos y la colección a restaurar con la flag *--nsInclude*.
-~~~~~
+
+~~~~~sh
 mongorestore --authenticationDatabase admin --username omar --password omar1234 --nsInclude "practicaDB.pinturas" /db-dump
 echo "MongoDB restore realizado
 ~~~~~
+
 Estos tres archivos los debemos copiar en el directorio ***/docker-entrypoint-initdb.d/*** para que se ejecuten justo al iniciarse el contenedor. Importante también, referenciar el directorio donde se almacenará el dump.
 Como hemos indicado, este contenedor deberá iniciarse el primero, ya que el resto dependen de alguna manera de este. Por ello, hemos creado un *healtcheck* para que una vez iniciado el servicio de mongo y este funcionando, pase a crearse el resto. Con las variables indicamos que se haga la primera comprobación a los 20s y que cada 10s se vuelva a comprobar en caso de fallo. Realizadas 3 comprobaciones fallidas, se interrumpe la inicialización del docker-compose.
 
 Una vez creado el contenedor para del servicio de **MongoDB**, pasamos a configurar el de **Mongo Express**. A destacar las variables de entorno necesarias para vincular este contenedor con el de ***MongoDB*** (mongo-container en nuestro caso) y la propia configuración de ***Mongo Express***.
-~~~~~
+
+~~~~~yml
 adminMongo-container:
     image: mongo-express:latest
     container_name: adminMongo-container
@@ -121,12 +130,14 @@ adminMongo-container:
     networks:
       - practica_net
 ~~~~~
+
 Hay que destacar con el *depends_on* incluyendo la *condition: service_healthy* la total dependencia con el contenedor de ***MongoDB***. Solo se inciará ***Mongo Express*** si ***MongoDB*** ha arrancado con éxito.
 
 Terminada la parte de la base de datos, pasamos al contenedor de backend. En nuestro caso, utilizamos utilizaremos ***NodeJS*** junto con ***Express*** y para ello el contenedor utiliza la imagen *node*.
 Copiamos la carpeta local que contiene el proyecto de backend en el directorio de trabajo del contenedor. Una vez iniciado, ejecutamos el comando *npm install* y *npm start* para iniciar el servidor.
 Una vez más, marcamos la dependencia a los servicios de ***MongoDB*** y ***Mongo Express***.
-~~~~~
+
+~~~~~yml
 backend_container:
     image: node:19-alpine
     container_name: backend_container
@@ -145,7 +156,8 @@ backend_container:
 
 Iniciado el contenedor para nuestra API, es el turno del contenedor para el frontend. Utilizamos ***Vite*** y ***React*** con lo que volvemos a crear el contenedor con la imagen de *node*.
 De nuevo, copiamos la carpeta que contiene el proyecto del frontend en el directorio del contenedor e inciamos tanto el instalador de paquetes como el servicio.
-~~~~~
+
+~~~~~yml
 frontend_container:
     image: node:19-alpine
     container_name: frontend_container
@@ -163,7 +175,7 @@ frontend_container:
 
 En la parte de las métricas, utilizamos las imagenes de ***Prometheus*** y ***Grafana***.
 
-~~~~
+~~~~yml
 prometheus_practica:
     image: prom/prometheus:v2.20.1
     container_name: prometheus_practica
@@ -199,7 +211,7 @@ prometheus_practica:
 
 Empezando por el servicio de métricas a incorporar en el servidor, debemos copiar el archivo de configuración de ***Prometheus*** en el directorio correspondiete del contenedor. Este archivo *prometheus.yml* contiene la información para que se conecte con el contenedor del backend *(backend_container)* y se inicia con el comando.
 
-~~~~
+~~~~yml
 global:
   scrape_interval: 5s
   evaluation_interval: 30s
@@ -212,7 +224,7 @@ scrape_configs:
 
 Para realizar unas métricas de prueba, hemos creado un contador de solicitudes para cada endpoint (*'/', '/pinturas'*) y un medidor de lo que tarda en realizarse el fetch de datos en nuestra API.
 
-~~~~
+````javascript
 // Contador para la ruta Home
 const contadorRutaHome = new Counter({
     name: 'ruta_home_accesos_total',
@@ -230,11 +242,11 @@ const tiempoRespuestaPeticion = new Gauge({
     name: 'ultimo_tiempo_peticion_ms',
     help: 'Tiempo de la última petición en milisegundos',
 });
-~~~~
+````
 
 Una vez definidos, los inicamos en la url correspondiente y añadimos un endpoint para las métricas y ver que funciona.
 
-~~~~
+~~~~javascript
 app.get('/metrics', async (req, res) => {
     try {
         res.set('Content-Type', register.contentType);
@@ -269,7 +281,7 @@ app.get('/pinturas', async (req, res) => {
 ~~~~
 
 Para configurar el servicio de ***Grafana*** de nuevo debemos intertar en el directorio correspondiente el archivo *datasources.yml*, insertar las variables de entorno y crear un volumen para mantener las metricas cuando se cierre y se vuelva a iniciar el contenedor.
-~~~~
+~~~~yml
 datasources.yml
 
 apiVersion: 1
@@ -286,7 +298,7 @@ datasources:
 
 Para finalizar con el ***docker compose***, configuramos un loadbalancer de nginx. Para ello, creamos el contenedor con la imagen nginx y copiamos el archivo nginx.conf en el directorio correspondiente del contenedor y una vez iniciado el contenedor que se ejecute el comando *nginx -g daemon off* para ejecutar nginx en primer plano.
 
-~~~~
+~~~~yml
 load_balancer:
     image: nginx:1.19.6
     container_name: load_balancer
