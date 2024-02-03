@@ -26,8 +26,8 @@
 - [Comprobación de todos los servicios](#comprobacion)
 
 ----
-<div style="display:flex;justify-content:center">
-<img style="" src="https://static-00.iconduck.com/assets.00/mongodb-icon-2048x2048-cezvpn3f.png" alt="icono-mongodb" width="90">
+<div style="text-align:center">
+<img src="https://static-00.iconduck.com/assets.00/mongodb-icon-2048x2048-cezvpn3f.png" alt="icono-mongodb" width="90">
 </div>
 
 ### MongoDB
