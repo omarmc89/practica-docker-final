@@ -9,11 +9,26 @@
 ![Static Badge](https://img.shields.io/badge/Prometheus-M%C3%A9tricas-CC3200?style=for-the-badge&logo=prometheus&labelColor=gray)
 ![Static Badge](https://img.shields.io/badge/Grafana-Interfaz%20m%C3%A9tricas-darkorange?style=for-the-badge&logo=grafana&labelColor=gray)
 
-[MongoDB](#mongo-container)
+#### CONTENEDORES:
+- [MongoDB](#mongo-container)
+- [Mongo Express](#mongo-express)
+- [Backend](#backend)
+- [Frontend](#frontend)
+- [Prometheus](#prometheus)
+- [Grafana](#grafana)
+- [Loadbalancer](#loadbalancer)
 
-Empezamos creando el ***docker compose*** por la parte de la base de datos y utilizaremos MongoDB. El docker compose lo contruimos de la siguiente manera:
 
-#### MongoDB
+#### CONFIGURACIÓN:
+
+- [Arranque docker-compose](#arranque#docker)
+- [Configuración interfaz Grafana](#configuracion#grafana)
+- [Comprobación de todos los servicios](#comprobacion)
+
+----
+
+
+Empezamos creando el ***docker compose*** por la parte de la base de datos y utilizando MongoDB. El docker compose lo construimos de la siguiente manera:
 
 ~~~~yml
 mongo-container:
