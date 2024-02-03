@@ -1,13 +1,35 @@
-# Práctica final Docker - 2º DAW
-### Integracion en un _Docker Compose_ un proyecto con backend, frontend, base de datos y métricas.
+<h1 style="text-align:center"> Práctica final Docker - 2º DAW<h1>
+<h3 style="text-align:center"> Integracion en un _Docker Compose_ un proyecto con backend, frontend, base de datos y métricas.<h3>
+
+<div>
+
 ![Static Badge](https://img.shields.io/badge/NodeJS%20%2B%20Express-backend-green?style=for-the-badge&logo=nodedotjs&logoColor=green)
 ![Static Badge](https://img.shields.io/badge/Vite%2BReact-frontend-skyblue?style=for-the-badge&logo=react&labelColor=gray)
 ![Static Badge](https://img.shields.io/badge/MongoDB-Database-darkgreen?style=for-the-badge&logo=mongodb&labelColor=gray)
 ![Static Badge](https://img.shields.io/badge/Prometheus-M%C3%A9tricas-CC3200?style=for-the-badge&logo=prometheus&labelColor=gray)
 ![Static Badge](https://img.shields.io/badge/Grafana-Interfaz%20m%C3%A9tricas-darkorange?style=for-the-badge&logo=grafana&labelColor=gray)
 
-Primero explicaremos la creación y configuración del docker-compose entero.
-Empezamos por la parte de la base de datos y utilizaremos MongoDB. El docker compose lo contruimos de la siguiente manera:
+</div>
+
+----
+
+- [MongoDB.](#mongodb)
+- [Mongo Express.](#mongo-express)
+- [Backend.](#backend)
+- [Frontend.](#frontend)
+- [Prometheus.](#prometheus)
+- [Grafana.](#grafana)
+- [Loadbalancer.](#loadbalancer)
+- [Arranque docker-compose.](#arranque-docker-compose)
+- [Configuración interfaz Grafana.](#configuración-interfaz-grafana)
+- [Comprobación de todos los servicios.](#comprobación-de-todos-los-servicios)
+
+----
+
+
+##### MongoDB.
+
+Empezamos creando el ***docker compose*** por la parte de la base de datos y utilizaremos MongoDB. El docker compose lo contruimos de la siguiente manera:
 
 ~~~~yml
 mongo-container:
@@ -107,6 +129,8 @@ echo "MongoDB restore realizado
 Estos tres archivos los debemos copiar en el directorio ***/docker-entrypoint-initdb.d/*** para que se ejecuten justo al iniciarse el contenedor. Importante también, referenciar el directorio donde se almacenará el dump.
 Como hemos indicado, este contenedor deberá iniciarse el primero, ya que el resto dependen de alguna manera de este. Por ello, hemos creado un *healtcheck* para que una vez iniciado el servicio de mongo y este funcionando, pase a crearse el resto. Con las variables indicamos que se haga la primera comprobación a los 20s y que cada 10s se vuelva a comprobar en caso de fallo. Realizadas 3 comprobaciones fallidas, se interrumpe la inicialización del docker-compose.
 
+##### Mongo Express.
+
 Una vez creado el contenedor para del servicio de **MongoDB**, pasamos a configurar el de **Mongo Express**. A destacar las variables de entorno necesarias para vincular este contenedor con el de ***MongoDB*** (mongo-container en nuestro caso) y la propia configuración de ***Mongo Express***.
 
 ~~~~~yml
@@ -133,6 +157,8 @@ adminMongo-container:
 
 Hay que destacar con el *depends_on* incluyendo la *condition: service_healthy* la total dependencia con el contenedor de ***MongoDB***. Solo se inciará ***Mongo Express*** si ***MongoDB*** ha arrancado con éxito.
 
+##### Backend.
+
 Terminada la parte de la base de datos, pasamos al contenedor de backend. En nuestro caso, utilizamos utilizaremos ***NodeJS*** junto con ***Express*** y para ello el contenedor utiliza la imagen *node*.
 Copiamos la carpeta local que contiene el proyecto de backend en el directorio de trabajo del contenedor. Una vez iniciado, ejecutamos el comando *npm install* y *npm start* para iniciar el servidor.
 Una vez más, marcamos la dependencia a los servicios de ***MongoDB*** y ***Mongo Express***.
@@ -154,6 +180,8 @@ backend_container:
       - practica_net
 ~~~~~
 
+##### Frontend.
+
 Iniciado el contenedor para nuestra API, es el turno del contenedor para el frontend. Utilizamos ***Vite*** y ***React*** con lo que volvemos a crear el contenedor con la imagen de *node*.
 De nuevo, copiamos la carpeta que contiene el proyecto del frontend en el directorio del contenedor e inciamos tanto el instalador de paquetes como el servicio.
 
@@ -172,6 +200,8 @@ frontend_container:
     networks:
       - practica_net
 ~~~~~
+
+##### Prometheus.
 
 En la parte de las métricas, utilizamos las imagenes de ***Prometheus*** y ***Grafana***.
 
@@ -280,6 +310,8 @@ app.get('/pinturas', async (req, res) => {
 })
 ~~~~
 
+##### Grafana.
+
 Para configurar el servicio de ***Grafana*** de nuevo debemos intertar en el directorio correspondiente el archivo *datasources.yml*, insertar las variables de entorno y crear un volumen para mantener las metricas cuando se cierre y se vuelva a iniciar el contenedor.
 ~~~~yml
 datasources.yml
@@ -295,6 +327,8 @@ datasources:
     isDefault: true
     editable: true
 ~~~~
+
+##### Loadbalancer.
 
 Para finalizar con el ***docker compose***, configuramos un loadbalancer de nginx. Para ello, creamos el contenedor con la imagen nginx y copiamos el archivo nginx.conf en el directorio correspondiente del contenedor y una vez iniciado el contenedor que se ejecute el comando *nginx -g daemon off* para ejecutar nginx en primer plano.
 
@@ -313,6 +347,8 @@ load_balancer:
     - practica_net
 ~~~~
 
+##### Arranque docker-compose.
+
 Terminado el docker compose, lo arrancamos mediante *docker compose up --build* y vemos como arrancan todos los contenedores. Primero el de ***MongoDB*** y despues de unos 20s incian el resto.
 Este es un ejemplo de como inician algunos de ellos.
 
@@ -320,6 +356,8 @@ Este es un ejemplo de como inician algunos de ellos.
 ![Docker compose ejemplo 2](./imagenes-readme/image-1.png)
 
 En este paso, que ya han arrancado todos los contenedores. Tenemos que configurar el dashboard de ***Grafana***. En la url *localhost:3500*, nos aparecerá la pagina de bienvenida.
+
+##### Configuración interfaz Grafana.
 
 ![Url Grafana](./imagenes-readme/image-2.png)
 
@@ -332,7 +370,9 @@ Hemos creado 3 dashboards, uno con el contador de cada endpoit, otro de las visi
 
 ![Dashboard final Grafana](./imagenes-readme/image-4.png)
 
-Hecho esto, podemos comprobar que todos los contenedores funcionan correctamente.
+##### Comprobación de todos los servicios.
+
+Coprobamos que todos los contenedores funcionan correctamente.
 Primero, el servicio de ***Mongo Express*** vinculado a ***MongoDB*** directamente.
 Entrado en la url *localhost:8081*, vemos tanto la bd creada *('practicaDB')* como la colección *('pinturas)*
 
