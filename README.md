@@ -2,6 +2,7 @@
   <h1 align="center">INTEGRACIÓN EN DOCKER COMPOSE MULTIPLES SERVICIOS</h1>
   <h3 align="center">Backend, frontend, base de datos, loadbalancer y métricas</h3>
 </p>
+
 ----
 
 ![Static Badge](https://img.shields.io/badge/NodeJS%20%2B%20Express-backend-green?style=for-the-badge&logo=nodedotjs&logoColor=green)
@@ -10,37 +11,33 @@
 ![Static Badge](https://img.shields.io/badge/Prometheus-M%C3%A9tricas-CC3200?style=for-the-badge&logo=prometheus&labelColor=gray)
 ![Static Badge](https://img.shields.io/badge/Grafana-Interfaz%20m%C3%A9tricas-darkorange?style=for-the-badge&logo=grafana&labelColor=gray)
 
+---
+
 #### CONTENEDORES:
-- [](#)
-    - [CONTENEDORES:](#contenedores)
-    - [CONFIGURACIÓN:](#configuración)
-  - [MongoDB](#mongodb)
-  - [Mongo Express](#mongo-express)
-  - [Backend](#backend)
-  - [Frontend](#frontend)
-  - [Prometheus](#prometheus)
-  - [Grafana](#grafana)
-  - [Loadbalancer.](#loadbalancer)
-  - [Arranque docker-compose.](#arranque-docker-compose)
-  - [Configuración interfaz Grafana.](#configuración-interfaz-grafana)
-  - [Comprobación de todos los servicios.](#comprobación-de-todos-los-servicios)
+- [MongoDB](#mongodb)
+- [Mongo Express](#mongo-express)
+- [Backend](#backend)
+- [Frontend](#frontend)
+- [Prometheus](#prometheus)
+- [Grafana](#grafana)
+- [Loadbalancer.](#loadbalancer)
+- [Arranque docker-compose.](#arranque-docker-compose)
+- [Configuración interfaz Grafana.](#configuración-interfaz-grafana)
+- [Comprobación de todos los servicios.](#comprobación-de-todos-los-servicios)
 
 
 #### CONFIGURACIÓN:
 
-- [](#)
-    - [CONTENEDORES:](#contenedores)
-    - [CONFIGURACIÓN:](#configuración)
-  - [MongoDB](#mongodb)
-  - [Mongo Express](#mongo-express)
-  - [Backend](#backend)
-  - [Frontend](#frontend)
-  - [Prometheus](#prometheus)
-  - [Grafana](#grafana)
-  - [Loadbalancer.](#loadbalancer)
-  - [Arranque docker-compose.](#arranque-docker-compose)
-  - [Configuración interfaz Grafana.](#configuración-interfaz-grafana)
-  - [Comprobación de todos los servicios.](#comprobación-de-todos-los-servicios)
+- [MongoDB](#mongodb)
+- [Mongo Express](#mongo-express)
+- [Backend](#backend)
+- [Frontend](#frontend)
+- [Prometheus](#prometheus)
+- [Grafana](#grafana)
+- [Loadbalancer.](#loadbalancer)
+- [Arranque docker-compose.](#arranque-docker-compose)
+- [Configuración interfaz Grafana.](#configuración-interfaz-grafana)
+- [Comprobación de todos los servicios.](#comprobación-de-todos-los-servicios)
 
 ----
 
