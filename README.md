@@ -1,7 +1,7 @@
 <h1 style="text-align:center"> Práctica final Docker - 2º DAW<h1>
-<h3 style="text-align:center"> Integracion en un _Docker Compose_ un proyecto con backend, frontend, base de datos y métricas.<h3>
+<h3 style="text-align:center"> Integracion en un <i>Docker Compose</i> un proyecto con backend, frontend, base de datos y métricas.<h3>
 
-<div>
+<div style="text-align:center">
 
 ![Static Badge](https://img.shields.io/badge/NodeJS%20%2B%20Express-backend-green?style=for-the-badge&logo=nodedotjs&logoColor=green)
 ![Static Badge](https://img.shields.io/badge/Vite%2BReact-frontend-skyblue?style=for-the-badge&logo=react&labelColor=gray)
@@ -13,7 +13,6 @@
 
 ----
 
-- [MongoDB.](#mongodb)
 - [Mongo Express.](#mongo-express)
 - [Backend.](#backend)
 - [Frontend.](#frontend)
@@ -27,7 +26,7 @@
 ----
 
 
-##### MongoDB.
+[<img src="./imagenes-readme/mongo.svg" alt="mongo" width="25"/> MongoDB.](https://img.shields.io/badge/MONGO-white?style=flat-square&logo=mongodb)
 
 Empezamos creando el ***docker compose*** por la parte de la base de datos y utilizaremos MongoDB. El docker compose lo contruimos de la siguiente manera:
 
