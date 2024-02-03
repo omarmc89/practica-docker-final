@@ -131,6 +131,10 @@ echo "MongoDB restore realizado
 Estos tres archivos los debemos copiar en el directorio ***/docker-entrypoint-initdb.d/*** para que se ejecuten justo al iniciarse el contenedor. Importante también, referenciar el directorio donde se almacenará el dump.
 Como hemos indicado, este contenedor deberá iniciarse el primero, ya que el resto dependen de alguna manera de este. Por ello, hemos creado un *healtcheck* para que una vez iniciado el servicio de mongo y este funcionando, pase a crearse el resto. Con las variables indicamos que se haga la primera comprobación a los 20s y que cada 10s se vuelva a comprobar en caso de fallo. Realizadas 3 comprobaciones fallidas, se interrumpe la inicialización del docker-compose.
 
+<div style="text-align:center">
+<img src="https://developer.asustor.com/uploadIcons/0020_999_1579585089_mongo-express-256.png" alt="icono-mongodb" width="90">
+</div>
+
 ##### Mongo Express.
 
 Una vez creado el contenedor para del servicio de **MongoDB**, pasamos a configurar el de **Mongo Express**. A destacar las variables de entorno necesarias para vincular este contenedor con el de ***MongoDB*** (mongo-container en nuestro caso) y la propia configuración de ***Mongo Express***.
@@ -160,6 +164,11 @@ adminMongo-container:
 Hay que destacar con el *depends_on* incluyendo la *condition: service_healthy* la total dependencia con el contenedor de ***MongoDB***. Solo se inciará ***Mongo Express*** si ***MongoDB*** ha arrancado con éxito.
 
 ##### Backend.
+
+<div style="text-align:center">
+<img src="./imagenes-readme/backend.png" alt="icono-mongodb" width="90">
+</div>
+
 
 Terminada la parte de la base de datos, pasamos al contenedor de backend. En nuestro caso, utilizamos utilizaremos ***NodeJS*** junto con ***Express*** y para ello el contenedor utiliza la imagen *node*.
 Copiamos la carpeta local que contiene el proyecto de backend en el directorio de trabajo del contenedor. Una vez iniciado, ejecutamos el comando *npm install* y *npm start* para iniciar el servidor.
