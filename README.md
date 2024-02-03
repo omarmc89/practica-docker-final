@@ -193,6 +193,10 @@ backend_container:
 
 ##### Frontend.
 
+<div style="text-align:center">
+<img src="./imagenes-readme/app.png" alt="icono-mongodb" width="90">
+</div>
+
 Iniciado el contenedor para nuestra API, es el turno del contenedor para el frontend. Utilizamos ***Vite*** y ***React*** con lo que volvemos a crear el contenedor con la imagen de *node*.
 De nuevo, copiamos la carpeta que contiene el proyecto del frontend en el directorio del contenedor e inciamos tanto el instalador de paquetes como el servicio.
 
@@ -212,7 +216,12 @@ frontend_container:
       - practica_net
 ~~~~~
 
-##### Prometheus.
+##### Prometheus
+
+<div style="text-align:center">
+<img src="https://static-00.iconduck.com/assets.00/prometheus-icon-511x512-1vmxbcxr.png" alt="icono-mongodb" width="90">
+</div>
+
 
 En la parte de las métricas, utilizamos las imagenes de ***Prometheus*** y ***Grafana***.
 
@@ -323,6 +332,10 @@ app.get('/pinturas', async (req, res) => {
 
 ##### Grafana.
 
+<div style="text-align:center">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Grafana_icon.svg/351px-Grafana_icon.svg.png" alt="icono-mongodb" width="90">
+</div>
+
 Para configurar el servicio de ***Grafana*** de nuevo debemos intertar en el directorio correspondiente el archivo *datasources.yml*, insertar las variables de entorno y crear un volumen para mantener las metricas cuando se cierre y se vuelva a iniciar el contenedor.
 ~~~~yml
 datasources.yml
@@ -359,6 +372,10 @@ load_balancer:
 ~~~~
 
 ##### Arranque docker-compose.
+
+<div style="text-align:center">
+<img src="https://miro.medium.com/v2/resize:fit:453/1*QVFjsW8gyIXeCUJucmK4XA.png" alt="icono-mongodb" width="200">
+</div>
 
 Terminado el docker compose, lo arrancamos mediante *docker compose up --build* y vemos como arrancan todos los contenedores. Primero el de ***MongoDB*** y despues de unos 20s incian el resto.
 Este es un ejemplo de como inician algunos de ellos.
