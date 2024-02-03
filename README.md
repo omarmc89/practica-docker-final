@@ -196,9 +196,9 @@ backend_container:
 
 ### Frontend
 
-<div style="text-align:center">
+<p align="center">
 <img src="./imagenes-readme/app.png" alt="icono-mongodb" width="90">
-</div>
+</p>
 
 Iniciado el contenedor para nuestra API, es el turno del contenedor para el frontend. Utilizamos ***Vite*** y ***React*** con lo que volvemos a crear el contenedor con la imagen de *node*.
 De nuevo, copiamos la carpeta que contiene el proyecto del frontend en el directorio del contenedor e inciamos tanto el instalador de paquetes como el servicio.
@@ -393,6 +393,9 @@ Este es un ejemplo de como inician algunos de ellos.
 En este paso, que ya han arrancado todos los contenedores. Tenemos que configurar el dashboard de ***Grafana***. En la url *localhost:3500*, nos aparecerá la pagina de bienvenida.
 
 ### Configuración interfaz Grafana.
+
+
+
 
 ![Url Grafana](./imagenes-readme/image-2.png)
 
