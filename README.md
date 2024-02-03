@@ -24,6 +24,7 @@
 - [Arranque docker-compose.](#arranque-docker-compose)
 - [Configuración interfaz Grafana.](#configuración-interfaz-grafana)
 - [Comprobación de todos los servicios.](#comprobación-de-todos-los-servicios)
+- [Puesta en marcha](#puesta-en-marcha)
 
 
 #### CONFIGURACIÓN:
@@ -38,6 +39,7 @@
 - [Arranque docker-compose.](#arranque-docker-compose)
 - [Configuración interfaz Grafana.](#configuración-interfaz-grafana)
 - [Comprobación de todos los servicios.](#comprobación-de-todos-los-servicios)
+- [Puesta en marcha](#puesta-en-marcha)
 
 ----
 
@@ -449,3 +451,6 @@ Y si hacemos scroll vemos que la petición a la API funciona correctamente.
 ![Ejemplo 2 frontend](./imagenes-readme/image-12.png)
 ![Ejemplo 3 frontend](./imagenes-readme/image-11.png)
 
+### Puesta en marcha
+
+Lo único que hay que hacer para poder poner en marcha el proyecto es simplemente arrancar el docker compose.
